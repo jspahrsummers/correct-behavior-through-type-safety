@@ -7,6 +7,7 @@
     - `NSData` -> `NSString`
     - `Optional`
     - `Array<T>`
+    - References vs. pointers
 - Unit tests vs. types
 - Example: validation
     - `String`, `Int`, etc. allow invalid values
