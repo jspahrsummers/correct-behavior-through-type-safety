@@ -173,4 +173,10 @@ exaaaaaaaaaamppleeeeeessssssssssss
 
 ---
 
+# Thanks
+
+to all the lovely reviewers of this presentation: John Doe, Jane Doe, ???
+
+---
+
 # Questions?
