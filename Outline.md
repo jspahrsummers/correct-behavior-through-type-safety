@@ -16,12 +16,14 @@
 - Phantom types
     - http://www.objc.io/snippets/13.html
     - [Validation with phantom types](https://wiki.haskell.org/Phantom_type)
-- Case study: errors in ReactiveCocoa
-    - Background about signals and events
-    - Assertion failures in property binding in RAC 2
-    - `ErrorType`
-    - `NoError` phantom type
-    - Property binding in RAC 3
-- Case study: `IO` monad in Haskell?
-- Case study: `STM` monad in Haskell?
-- Example: threading in the type system?
+    - Case study: errors in ReactiveCocoa
+        - Background about signals and events
+        - Assertion failures in property binding in RAC 2
+        - `ErrorType`
+        - `NoError` phantom type
+        - Property binding in RAC 3
+- Using types to describe effects
+    - In addition to adding safety, types can also describe some form of _unsafety_ or side effects
+    - Case study: `IO` monad in Haskell
+    - Case study: `SignalProducer` in ReactiveCocoa
+    - Example: threading in the type system
