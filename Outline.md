@@ -4,12 +4,12 @@
     - Who am I?
 - Trivial examples of types for correctness
     - Mutable vs. immutable collections in Objective-C
-    - NSData -> NSString
-    - Optionals
-    - Array<T>
+    - `NSData` -> `NSString`
+    - `Optional`
+    - `Array<T>`
 - Unit tests vs. types
 - Example: validation
-    - String, Int, etc. allow invalid values
+    - `String`, `Int`, etc. allow invalid values
     - Creating a more restricted type proves that you have validated a given value
     - JSON parsing into model objects is like validation
 - Phantom types
@@ -18,9 +18,9 @@
 - Case study: errors in ReactiveCocoa
     - Background about signals and events
     - Assertion failures in property binding in RAC 2
-    - ErrorType
-    - NoError phantom type
+    - `ErrorType`
+    - `NoError` phantom type
     - Property binding in RAC 3
-- Case study: IO monad in Haskell?
-- Case study: STM monad in Haskell?
+- Case study: `IO` monad in Haskell?
+- Case study: `STM` monad in Haskell?
 - Example: threading in the type system?
