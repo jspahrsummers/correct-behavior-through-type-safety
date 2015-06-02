@@ -22,20 +22,93 @@
 
 ---
 
-# [fit] We can use types to prove (some) correctness
+# [fit] **Curry–Howard**
+# [fit] correspondence
 
-^ Mention Curry-Howard correspondence?
+^ … states that there is a relationship between type systems and logical proofs.
+
+---
+
+# [fit] _Types_ = _Proofs_
+
+^ Specifically, that they are equivalent. A well-typed program is a logical proof, and a logical proof can be represented as a program.
+
+^ Practically, this equivalence means (in a programming language with a type system) that each function must _prove_ its correctness to the typechecker and the compiler.
+
+---
+
+# A _→_ B
+
+^ For example, in order for a function from type A to type B to compile, you must _prove_ that such a transformation is valid. This "proof" consists of writing a well-typed function definition.
+
+---
+
+# EXAMPLE HERE
+
+---
+
+# [fit] String _→_ String
+
+^ By contrast, the amount we can prove with this function is very little. You still have to prove that you have a `String` result, but there innumerable ways to implement this function that may be incorrect, or may not do anything at all!
+
+---
+
+```swift
+func identity(s: String) -> String {
+    return s
+}
+```
+
+^ Here's a perfectly valid proof for the aforementioned type signature. This is a function from `String` to `String`, but we don't get much useful information from it.
+
+---
+
+# [fit] We can use
+# _types_
+# [fit] to prove
+# _correctness_
+
+^ The correspondence between types and proofs is useful because it means that having an instance of a given type _proves_ that you have performed a logically valid† transformation to obtain it.
+
+---
+
+- `NSData` says nothing about its bytes
+- `NSString` proves that you have characters
+
+^ For example, having a value of type `NSString` proves that you have "characters," not just a bundle of bytes.
+
+---
+
+- `NSURL` proves that you have a valid URL
+
+^ And having a value of type `NSURL` proves that you have a valid URL, not just an arbitrary string.
+
+---
+
+# Validation
+
+TODO
+
+^ This idea can be extended to any kind of validation.
+
+---
+
+`String`, `Int`, etc. allow all kinds of values
+
+---
+
+Creating a more restricted type (like an `enum`) proves that you have performed validation when you have it.
+
+---
+
+- When you parse JSON into custom models, this is simply a special case of validation!
+- Having a validated model _proves more_ than the dictionaries, arrays, etc. that make up the JSON structure, which in turn proves more than the simple string (believed to contain JSON) before parsing
 
 ---
 
 `NSArray` vs. `NSMutableArray`
 
 ^ The type of `NSArray` prevents you from mutating it.
-
----
-
-- `NSData` says nothing about its bytes
-- `NSString` guarantees that you have characters
 
 ---
 
@@ -55,23 +128,6 @@
 # [fit] What about tests?
 
 ^ Proof vs. support, etc.
-
----
-
-# [fit] Validation with types
-
----
-
-`String`, `Int`, etc. allow all kinds of values
-
----
-
-Creating a more restricted type (like an `enum`) proves that you have performed validation when you have it.
-
----
-
-- When you parse JSON into custom models, this is simply a special case of validation!
-- Having a validated model _proves more_ than the dictionaries, arrays, etc. that make up the JSON structure, which in turn proves more than the simple string (believed to contain JSON) before parsing
 
 ---
 
