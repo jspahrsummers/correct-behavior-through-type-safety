@@ -205,7 +205,9 @@ Type of <~ goes here
 - You can do side-effecting operations with the values in it
 - You cannot get the values out
 
-In other words, seeing IO is a strong suggestion of side effects, and the absence of it is proof that there aren’t side effects†!
+^ In other words, seeing IO is a strong suggestion of side effects, and the absence of it is proof that there aren’t side effects†!
+
+^ This is similar to Swift's `Optional`, which suggests that a value _might_ not exist—on the other hand, if you don't see `Optional`, the value definitely _does_ exist.
 
 ---
 
