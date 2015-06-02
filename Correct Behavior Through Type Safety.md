@@ -72,14 +72,20 @@ func identity(s: String) -> String {
 
 ---
 
-- `NSData` says nothing about its bytes
-- `NSString` proves that you have characters
-
-^ For example, having a value of type `NSString` proves that you have "characters," not just a bundle of bytes.
+# [fit] What does _NSData_ prove?
+### **Not much.**
 
 ---
 
-- `NSURL` proves that you have a valid URL
+# [fit] What does _NSString_ prove?
+### **_Characters_, not just bytes!**
+
+^ Having a value of type `NSString` proves that you have "characters," not just a bundle of bytes.
+
+---
+
+# [fit] What does _NSURL_ prove?
+### **_Valid URL_, not just a string!**
 
 ^ And having a value of type `NSURL` proves that you have a valid URL, not just an arbitrary string.
 
