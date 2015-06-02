@@ -1,14 +1,12 @@
 # [fit] Correct Behavior
-# _through_
+## _through_
 # [fit] Type Safety
 
----
+^ I want to talk today about some of the great things we can do with the new and improved type system that Swift brings to Cocoa development. For those used to the dynamic nature of Objective-C, Swift might seem like a setback—more akin to Java than the language we were using before.
 
-# About this talk
+^ However, I believe that Swift’s type system brings some much-needed safety to Cocoa development, helping us catch more bugs at compile-time, before they ship to and affect real users.
 
----
-
-# Why should you care?
+^ Specifically, static types allow us to _prove_ the correctness of certain things, and prevent many invalid states from even occurring. This talk will demonstrate some of the techniques for doing that, and show why testing alone isn't good enough.
 
 ---
 
@@ -18,7 +16,13 @@
 ## Mantle
 ## Carthage
 
-^ I've seen some shit.
+^ First, let me introduce myself. My name is Justin Spahr-Summers (@jspahrsummers on GitHub, Twitter, basically everything), and these are some of the open source projects I’ve been involved with.
+
+^ When I'm not doing Cocoa development, I like to spend time with functional programming languages like Haskell, Idris, or Elm, which I've found really helpful for expanding my mind and learning powerful new concepts.
+
+---
+
+# TODO: BETTER TRANSITION
 
 ---
 
