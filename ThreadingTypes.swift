@@ -24,6 +24,13 @@ struct UIAction<T> {
 			return transform(self.action())
 		}
 	}
+
+	func flatMap<U>(transform: T -> UIAction<U>) -> UIAction<U> {
+		return UIAction<U> {
+			let newAction = transform(self.action())
+			return newAction.action()
+		}
+	}
 }
 
 let action = UIAction { println("foobar") }
