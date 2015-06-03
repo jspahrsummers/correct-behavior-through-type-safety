@@ -150,9 +150,48 @@ Creating a more restricted type (like an `enum`) proves that you have performed 
 
 ---
 
-# [fit] What about tests?
+# [fit] What about _tests_?
 
-^ Proof vs. support, etc.
+^ I imagine that at least some of you are wondering why I couldn't be doing all of this with tests instead of types.
+
+^ Although tests can certainly _help_ improve correctness, they're not a complete replacement for powerful types.
+
+---
+
+# [fit] **Science break!**
+
+![](Resources/neilwithit.jpg)
+
+^ In scientific research, hypotheses can never be _proven_—they can only be supported by the available evidence, or else disproven if the evidence is contradictory.
+
+^ Tests have a similar issue.
+
+---
+
+# [fit] _Tests_ are _support_
+# [fit] _Types_ are _proof_
+
+^ Fundamentally, a passing test is merely _one piece_ of evidence that your behavior is correct. Although a test can _disprove_ correctness by failing, it can never _prove_ it by succeeding. It's just supporting material.
+
+^ On the other hand, types actually _are_ proof, by the Curry-Howard correspondence I mentioned earlier. Whatever assertions you have encoded into your program's types will be proven or disproven by the typechecker.
+
+---
+
+# **_Caveats_**
+
+- Proofs can contain errors too
+- Types can’t represent everything
+- Tests may be _good enough_
+
+^ Although significantly less likely, it's possible to make errors when describing types in your program, much like making an error in a logical proof. The compiler should catch accidental mistakes, but it can't fix an incorrect-but-valid specification.
+
+^ Types, and Swift's type system in particular, also can't capture everything. Side effects are especially nefarious—for example, it's impossible to tell (from just the types) whether invoking the same function multiple times will yield the same result.
+
+^ Finally, tests might be good enough for your use case. For example, it's far easier to test that something can be loaded from your app bundle than it is to somehow encode that in the type system. (I don't even know what that would look like.)
+
+---
+
+_TODO:_ But there's even more you can do with types than you might expect
 
 ---
 
