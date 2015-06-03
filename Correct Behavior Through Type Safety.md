@@ -202,30 +202,78 @@ _TODO:_ But there's even more you can do with types than you might expect
 
 ---
 
+# **Example**
 # [fit] Errors in ReactiveCocoa
 
----
+^ I'd like to give an example of using types (in a somewhat unconventional way)
+to prevent errors.
 
-- Historically three kinds of events:
-    - Next
-    - Error
-    - Completed
-
-- `RACSignal *` can send any number of `next`s, followed by `error` or `completed`
+^ This one comes from ReactiveCocoa (RAC), which is a library for functional reactive programming, using streams of events known as “signals.”
 
 ---
 
-# [fit] Property binding in RAC 2
+# Signals consist of…
+
+- Any number of _next_ events
+- Optionally an _error_ or _completed_ event
+
+## `Next* (Error | Completed)?`
+
+^ In RAC, signals must obey this grammar.
+
+---
+
+# [fit] `RACSignal *`
+
+^ This is the type of a signal in Objective-C.
+
+---
+
+![](Resources/whats-in-the-box.jpg)
+
+^ Since signals are just an opaque object pointer in Objective-C, there's no way to tell which events it may send, or what type of value will be associated with the `next` events.
+
+---
+
+# Property binding in RAC 2
+
+```objc
+RAC(self.imageView, image) = [RACObserve(self, model)
+    flattenMap:^ RACSignal * (Model *model) {
+        return [model fetchImage];
+    }];
+```
+
+^ This is a simple example of using RAC to bind an image view.
+
+^ Here, we’re saying: whenever the model is replaced, fetch a new image (from the network or a database, perhaps), and set it upon the image view.
+
+---
+
+# Property binding in RAC 2
+
+```objc
+RAC(self.imageView, image) = [RACObserve(self, model)
+    flattenMap:^ RACSignal * (Model *model) {
+        return [model fetchImage];
+    }];
+```
 
 ```
-Screenshot and/or assertion failure (“error reached property binding”) goes here
+*** Received error from RACSignal in binding for key
+path "image" on UIImageView:
+    Error Domain=NSURLErrorDomain Code=-1 "Operation
+could not be completed."
 ```
+
+^ Unfortunately, this example isn't particularly safe if the -fetchImage signal can send an error event. Since we don't do anything to handle an error here, it would reach the property binding and trigger an assertion failure.
+
+^ RAC (the framework) can't really know what the right answer is for your program here. Ignoring the error could be dangerous, but silently failing could be bad too. So it trips an assertion.
 
 ---
 
-- RAC doesn't know the answer
-    - Ignoring the error might be appropriate for some cases, but not all
-    - Framework trips an assertion because it doesn't know how to handle that case
+# **Solution**
+# [fit] Types
 
 ---
 
