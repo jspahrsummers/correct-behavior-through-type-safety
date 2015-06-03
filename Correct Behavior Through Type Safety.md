@@ -1,6 +1,6 @@
-# [fit] Correct Behavior
-## _through_
-# [fit] Type Safety
+# [fit] _Correct Behavior_
+## through
+# [fit] _Type Safety_
 
 ^ I want to talk today about some of the great things we can do with the new and improved type system that Swift brings to Cocoa development. For those used to the dynamic nature of Objective-C, Swift might seem like a setback—more akin to Java than the language we were using before.
 
@@ -47,7 +47,18 @@
 
 ---
 
-# EXAMPLE HERE
+# A _→_ B
+
+```swift
+func toInteger(num: Double) -> Int {
+    let result = round(num)
+    return Int(result)
+}
+```
+
+^ Here's a function from `Double` to `Int`. The integer result _proves_ that we don't have a fractional component anymore.
+
+^ There are a few valid implementations for this type signature. I picked the `round` function, but `floor` and `ceil` would also work. In all cases, though, executing the function gives you a _provably integral_ value as a result.
 
 ---
 
@@ -56,6 +67,8 @@
 ^ By contrast, the amount we can prove with this function is very little. You still have to prove that you have a `String` result, but there innumerable ways to implement this function that may be incorrect, or may not do anything at all!
 
 ---
+
+# String _→_ String
 
 ```swift
 func identity(s: String) -> String {
