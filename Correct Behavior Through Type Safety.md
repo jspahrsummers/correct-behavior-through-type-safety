@@ -22,7 +22,7 @@
 
 ---
 
-# TODO: BETTER TRANSITION
+_TODO:_ BETTER TRANSITION
 
 ---
 
@@ -90,27 +90,29 @@ func identity(s: String) -> String {
 ---
 
 # [fit] What does _NSData_ prove?
-### **Not much.**
+### **(Not much.)**
+
+^ When you have a value of type `NSData`, what can you say about it? Basically nothing, except perhaps that it has a certain length.
+
+^ You just have a bundle of bytes, and that tells you very little.
 
 ---
 
 # [fit] What does _NSString_ prove?
 ### **_Characters_, not just bytes!**
 
-^ Having a value of type `NSString` proves that you have "characters," not just a bundle of bytes.
+^ On the other hand, having a value of type `NSString` proves that you have "characters," not just a bundle of bytes.
 
 ---
 
 # [fit] What does _NSURL_ prove?
 ### **_Valid URL_, not just a string!**
 
-^ And having a value of type `NSURL` proves that you have a valid URL, not just an arbitrary string.
+^ Taking it one level further, a value of type `NSURL` proves that you have a valid URL, not just any arbitrary string.
 
 ---
 
-# Validation
-
-TODO
+_TODO:_ Validation
 
 ^ This idea can be extended to any kind of validation.
 
