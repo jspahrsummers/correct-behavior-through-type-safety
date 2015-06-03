@@ -1,3 +1,5 @@
+build-lists: true
+
 # [fit] _Correct Behavior_
 ## through
 # [fit] _Type Safety_
@@ -202,7 +204,7 @@ _TODO:_ But there's even more you can do with types than you might expect
 
 ---
 
-# **Example**
+# **Example:**
 # [fit] Errors in ReactiveCocoa
 
 ^ I'd like to give an example of using types (in a somewhat unconventional way)
@@ -272,32 +274,90 @@ could not be completed."
 
 ---
 
-# **Solution**
-# [fit] Types
+# **Solution:**
+# [fit] Types!
+
+^ Now that we can use Swift, this problem can be avoided by capturing more
+information in the type system.
 
 ---
 
-# [fit] RAC 3
+# [fit] `Signal<T, Error>`
 
-`Signal<T, Error: ErrorType>`
+^ This is the new signal type in ReactiveCocoa 3. Signals are now parameterized by the type of values they send (`T`), _as well as_ the type of error they might send (`Error`).
 
----
-
-# `NoError`
+^ Okay, so now we can know what kind of error is sent. How does that help us with the property binding example?
 
 ---
 
-# [fit] Property binding in RAC 3
+# [fit] `enum NoError {}`
 
+^ The answer lies in this `NoError` type we introduced as well. This type doesn't have any constructors, so you can never actually have an _instance_ of `NoError`—you can only refer to the type itself.
+
+^ When used as part of a signal's type, `NoError` guarantees that it can never send an error event, because that event would be impossible to instantiate using this type!
+
+---
+
+# Property binding in RAC 3
+
+```swift
+func <~ <T> (property: MutableProperty<T>,
+    signal: Signal<T, NoError>)
+
+func <~ <T> (property: MutableProperty<T>,
+    producer: SignalProducer<T, NoError>)
 ```
-Type of <~ goes here
-```
+
+^ In RAC 3, we use this squiggly operator to bind to properties. You can see here that it requires a signal or a signal producer which _must not error_ (because of the presence of `NoError`).
+
+^ Don't worry about the introduction of "signal producers" here. They're not super relevant to the error handling bits.
 
 ---
 
-# [fit] Types
-# can also describe
-# [fit] effects
+# Property binding in RAC 3
+
+```swift
+class Model {
+    func fetchImage() -> SignalProducer<UIImage, NSError>
+}
+
+self.imageProperty <~ self.modelProperty.producer
+    // TYPE ERROR: NSError is incompatible with NoError
+    |> flatMap(.Latest) { model in
+        return model.fetchImage()
+    }
+```
+
+^ A naive reimplementation of the Objective-C binding might look like this, using the RAC 3 APIs.
+
+^ However, instead of asserting at runtime like the Objective-C version, this will fail at compile-time with a type error. Specifically, `fetchImage` returns a signal producer which may send `NSError`, but the property is expecting one which cannot error (i.e., `NoError`).
+
+---
+
+# Property binding in RAC 3
+
+```swift
+class Model {
+    func fetchImage() -> SignalProducer<UIImage, NSError>
+}
+
+self.imageProperty <~ self.modelProperty.producer
+    |> flatMap(.Latest) { model in
+        return model.fetchImage()
+            // Ignore any error event
+            |> catch { error in .empty }
+    }
+```
+
+^ In order to appease the compiler, we're forced to choose how errors should be handled. Here, we've chosen to ignore them, but there are other options too.
+
+^ And, just like that, we've added additional safety to these APIs by including more information in the type system. Users are now required to _prove_ that errors behave in a certain way. Awesome!
+
+---
+
+# _Types_
+# [fit] can also describe
+# _effects_
 
 ^ In addition to adding safety, types can also describe some form of _unsafety_ or side effects
 
