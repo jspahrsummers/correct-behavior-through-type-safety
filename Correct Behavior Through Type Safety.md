@@ -393,13 +393,63 @@ self.imageProperty <~ self.modelProperty.producer
 
 ---
 
-# [fit] Using types
-# to capture
-# [fit] threading
+# **Example:**
+# [fit] Types for concurrency
 
+^ I'd like to finish with one last example, of using types to describe concurrency.
+
+---
+
+# The UI Problem™
+
+```swift
+dispatch_async(someBackgroundQueue) {
+    // Oops!
+    self.textField.text = "foobar"
+}
 ```
-exaaaaaaaaaamppleeeeeessssssssssss
+
+^ This is really contrived code, of course, but I'm sure we've all written code that accidentally did some UI work on a background thread.
+
+^ What if we had some way to prevent this sort of thing from happening?
+
+---
+
+# Capturing UI code in the type system
+
+```swift
+struct UIAction<T> {
+    init(_ action: () -> T)
+
+    func enqueue()
+    func enqueue(handler: T -> ())
+
+    func map<U>(f: T -> U) -> UIAction<U>
+    func flatMap<U>(f: T -> UIAction<U>) -> UIAction<U>
+}
 ```
+
+^ Introducing `UIAction`. This simple type will represent some arbitrary action that needs to be performed on the main thread.
+
+^ We can instantiate it with any unit of work, compose any additional work using `map` and `flatMap`, then eventually enqueue that combined chunk of work on the main thread.
+
+^ Notice how the type forbids executing the action in any way other than running it on the main thread. By wrapping UI effects into this type, we can guarantee that those effects _must_ be applied only while on the main thread!
+
+---
+
+# What if…?
+
+```swift
+extension UITextField {
+    /// Sets the receiver's text to the given string
+    /// when the returned action is executed.
+    func jss_setText(text: String) -> UIAction<()>
+}
+```
+
+^ We could use our new type in some UIKit extensions, like this one on `UITextField` that allows you to _safely_ set the text of a text field.
+
+^ Imagine if all of AppKit or UIKit were written this way, officially. It'd become impossible to accidentally use them on a background thread! More powerful types can prevent all kinds of errors.
 
 ---
 
