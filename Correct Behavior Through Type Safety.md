@@ -24,7 +24,7 @@ build-lists: true
 
 ---
 
-# **Why types?**
+![fit](Resources/types.png)
 
 ^ So, what are types useful for? Why do we have type systems at all?
 
@@ -165,7 +165,7 @@ func identity(s: String) -> String {
 
 ---
 
-# [fit] What about _tests_?
+# [fit] **What about _tests_?**
 
 ^ I imagine that at least some of you are wondering why I couldn't be doing all of this with tests instead of types.
 
@@ -206,24 +206,43 @@ func identity(s: String) -> String {
 
 ---
 
-_TODO:_ But there's even more you can do with types than you might expect
+![](Resources/full-of-stars.jpg)
+
+^ There's even more you can do with types that you may not have expected.
 
 ---
 
-# [fit] Phantom types
+# _Phantom_ types[^1]
 
-- [Functional snippet #13](http://www.objc.io/snippets/13.html) from [objc.io](http://www.objc.io)
-- [Validation with phantom types](https://wiki.haskell.org/Phantom_type) from the Haskell wiki
+```swift
+struct FileHandle<A> {
+    let handle: NSFileHandle
+}
+
+enum Read {}
+enum Write {}
+
+func openForReading(path: String) -> FileHandle<Read>
+func openForWriting(path: String) -> FileHandle<Write>
+func readDataToEndOfFile(handle: FileHandle<Read>) -> NSData
+```
+
+[^1]: See [functional snippet #13](http://www.objc.io/snippets/13.html) from [objc.io](http://www.objc.io).
+
+^ This is an example I really like, from the authors of objc.io and Functional Programming in Swift.
+
+^ Here, we've created a wrapper for NSFileHandle that we parameterize over a phantom type `A`. It's called a "phantom" type because we never actually use it in the implementation of the `struct`.
+
+^ Even though it's never referenced, we can still use that parameter for typechecking. Here, `Read` and `Write` are used to indicate file handles for reading or writing, respectively. Consequently, a given handle can only be passed to functions that match its access type.
 
 ---
 
-# **Example:**
+# **Case study:**
 # [fit] Errors in ReactiveCocoa
 
-^ I'd like to give an example of using types (in a somewhat unconventional way)
-to prevent errors.
+^ I'd also like to share a more in-depth example of using types in a somewhat unconventional way to prevent errors.
 
-^ This one comes from ReactiveCocoa (RAC), which is a library for functional reactive programming, using streams of events known as “signals.”
+^ This one comes from ReactiveCocoa (RAC), which is a library (that I contribute to) for functional reactive programming, using streams of events known as “signals.”
 
 ---
 
