@@ -24,20 +24,63 @@ build-lists: true
 
 ---
 
-_TODO:_ BETTER TRANSITION
+# **Why types?**
+
+^ So, what are types useful for? Why do we have type systems at all?
 
 ---
 
-# [fit] **Curry–Howard**
-# [fit] correspondence
+# [fit] Types _prevent errors_
+# [fit] **(by restricting what you can do)**
 
-^ … states that there is a relationship between type systems and logical proofs.
+^ These restrictions help catch errors at compile-time. Here are some common examples…
+
+---
+
+# `NSArray`
+# [fit] is _more restricted_ than
+# [fit] `NSMutableArray`
+
+^ The type of `NSArray` prevents you from mutating it.
+
+---
+
+# `NSArray`
+# [fit] _prevents more errors_ than
+# [fit] `NSMutableArray`
+
+^ Mutation introduces a whole new category of possible mistakes, like race conditions, inconsistent indices, etc.
+
+^ Using `NSArray` instead of `NSMutableArray` will prevent many of those errors, through the type system alone.
+
+---
+
+# [fit] `Optional<T>`
+# [fit] _restricts_ access to its value
+# [fit] _prevents_ mistakes with `nil`
+
+^ By forcing your code to acknowledge the possibility of `nil`, the `Optional` type in Swift helps prevent _accidental_ uses of `nil` values.
+
+---
+
+# `Array<T>`
+# [fit] _restricts_ insertions
+# [fit] _prevents_ crashes after retrieval
+
+^ By forcing all elements to be the same type, `Array` prevents type mismatch errors that can result in exceptions and crashes.
+
+^ Now, the compiler can verify that the code writing the array and the code reading the array agree upon what type of value they should be using.
+
+---
+
+# **More generally…**
 
 ---
 
 # [fit] _Types_ = _Proofs_
+# [fit] **(the [Curry–Howard correspondence](http://en.wikipedia.org/wiki/Curry–Howard_correspondence))**
 
-^ Specifically, that they are equivalent. A well-typed program is a logical proof, and a logical proof can be represented as a program.
+^ A well-typed program is also a logical proof, and any logical proof can be represented as a program.
 
 ^ Practically, this equivalence means (in a programming language with a type system) that each function must _prove_ its correctness to the typechecker and the compiler.
 
@@ -114,41 +157,11 @@ func identity(s: String) -> String {
 
 ---
 
-_TODO:_ Validation
+# [fit] Extends to
+# _any kind_
+# [fit] of validation
 
-^ This idea can be extended to any kind of validation.
-
----
-
-`String`, `Int`, etc. allow all kinds of values
-
----
-
-Creating a more restricted type (like an `enum`) proves that you have performed validation when you have it.
-
----
-
-- When you parse JSON into custom models, this is simply a special case of validation!
-- Having a validated model _proves more_ than the dictionaries, arrays, etc. that make up the JSON structure, which in turn proves more than the simple string (believed to contain JSON) before parsing
-
----
-
-`NSArray` vs. `NSMutableArray`
-
-^ The type of `NSArray` prevents you from mutating it.
-
----
-
-`Optional` forces your code to acknowledge the possibility of `nil`
-
----
-
-`Array<String>` prevents you from trying to insert or extract an `Int`
-
----
-
-- C pointers can refer to anything in memory, even invalid addresses
-- References (like Swift objects) can't be pointed to something invalid
+^ For example, JSON parsing means validating that a raw string contains some data structures, then validating that those data structures can be converted into your program's model objects.
 
 ---
 
@@ -175,7 +188,7 @@ Creating a more restricted type (like an `enum`) proves that you have performed 
 
 ^ Fundamentally, a passing test is merely _one piece_ of evidence that your behavior is correct. Although a test can _disprove_ correctness by failing, it can never _prove_ it by succeeding. It's just supporting material.
 
-^ On the other hand, types actually _are_ proof, by the Curry-Howard correspondence I mentioned earlier. Whatever assertions you have encoded into your program's types will be proven or disproven by the typechecker.
+^ On the other hand, types actually _are_ proof, by the Curry-Howard correspondence/equivalence I mentioned earlier. Whatever assertions you have encoded into your program's types will be proven or disproven by the typechecker.
 
 ---
 
