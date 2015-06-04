@@ -490,10 +490,11 @@ extension UITextField {
 
 ---
 
-# Thanks
+# Slides and notes
 
-to all the lovely reviewers of this presentation: John Doe, Jane Doe, ???
+Available at _[git.io/vkjl9](https://github.com/jspahrsummers/correct-behavior-through-type-safety)_
+(_[github.com/jspahrsummers/correct-behavior-through-type-safety](https://github.com/jspahrsummers/correct-behavior-through-type-safety)_)
 
----
+# Thanks to…
 
-# Questions?
+Neil Pankey, Rob Rix, James Lawton, Gordon Fontenot, Eli Perkins, Javi Soto, anyone else who I omitted in error, _and you!_
