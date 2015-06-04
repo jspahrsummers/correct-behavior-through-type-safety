@@ -130,7 +130,7 @@ func identity(s: String) -> String {
 # [fit] to prove
 # _correctness_
 
-^ The correspondence between types and proofs is useful because it means that having an instance of a given type _proves_ that you have performed a logically valid† transformation to obtain it.
+^ The correspondence between types and proofs is useful because it means that having an instance of a given type _proves_ that you have performed a logically valid transformation to obtain it.
 
 ---
 
@@ -391,27 +391,32 @@ self.imageProperty <~ self.modelProperty.producer
 # [fit] can also describe
 # _effects_
 
-^ In addition to adding safety, types can also describe some form of _unsafety_ or side effects
+^ In addition to adding safety, types can also describe some form of _unsafety_, like side effects.
 
 ---
 
-# [fit] `IO` in Haskell
+# _`IO`_
+#### ~~monad~~
+# in Haskell
 
-~~Monads~~
-
-^ Not important for this discussion.
+^ One of the more famous examples of this is the IO *cough*monad*cough* in Haskell. (We're not gonna talk about monads.)
 
 ---
 
-# [fit] `IO` in Haskell
+# With _IO_, you can…
 
-- You can put values into it
-- You can do side-effecting operations with the values in it
-- You cannot get the values out
+- Put a value into it
+- Perform side effects using the value
+- “Lift” pure functions to apply to the value
+- Never[^2] get the result back out
 
-^ In other words, seeing IO is a strong suggestion of side effects, and the absence of it is proof that there aren’t side effects†!
+[^2]: Except through the rarely-used `unsafePerformIO`.
 
-^ This is similar to Swift's `Optional`, which suggests that a value _might_ not exist—on the other hand, if you don't see `Optional`, the value definitely _does_ exist.
+^ In other words, seeing IO is a strong suggestion of side effects. And if you _don't_ see IO, you even have proof that there _aren't_ side effects, since the IO would still be there if that were the case!
+
+^ This is similar to Swift's `Optional`, which suggests that a value _might_ not exist. On the other hand, if you _don't_ see `Optional`, the value definitely _does_ exist.
+
+^ So although `IO` doesn't need to exist in Swift, the concepts are still applicable.
 
 ---
 
