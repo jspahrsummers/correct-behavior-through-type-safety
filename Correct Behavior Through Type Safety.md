@@ -406,9 +406,9 @@ self.imageProperty <~ self.modelProperty.producer
 # With _IO_, you can…
 
 - Put a value into it
-- Perform side effects using the value
+- Perform _side effects_ using the value
 - “Lift” pure functions to apply to the value
-- Never[^2] get the result back out
+- _Never[^2]_ get the result back out
 
 [^2]: Except through the rarely-used `unsafePerformIO`.
 
@@ -420,13 +420,18 @@ self.imageProperty <~ self.modelProperty.producer
 
 ---
 
-# [fit] RAC 3 (again)
+# With a _signal_, you can…
 
-`Signal` and `SignalProducer` describe _effects over time_
+- Put values into it
+- Perform _time-based operations_ using the values
+- “Lift” pure functions to apply to the values
+- _Register for delivery[^3]_ to get the results back out
 
-- You can put values into it
-- You can do time-based operations with the values in it
-- To get the values out, you have to register for delivery—you don't get them right away†
+[^3]: It’s possible to synchronously wait for results, but the framework highly discourages this.
+
+^ For example, to go back to ReactiveCocoa for a second, many of the benefits of the `IO` type also apply to RAC's `Signal` type.
+
+^ Just like `IO` represents side effects, `Signal` (well, `SignalProducer`) represents _effects over time_.
 
 ---
 
