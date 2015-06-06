@@ -141,6 +141,8 @@ func identity(s: String) -> String {
 
 ^ You just have a bundle of bytes, and that tells you very little.
 
+^ Still, at least it's slightly better than a variable or parameter of type `id`, which tells you (proves) absolutely nothing about the object.
+
 ---
 
 # [fit] What does _NSString_ prove?
