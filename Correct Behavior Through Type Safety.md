@@ -302,7 +302,9 @@ could not be completed."
 
 ^ Unfortunately, this example isn't particularly safe if the -fetchImage signal can send an error event. Since we don't do anything to handle an error here, it would reach the property binding and trigger an assertion failure.
 
-^ RAC (the framework) can't really know what the right answer is for your program here. Ignoring the error could be dangerous, but silently failing could be bad too. So it trips an assertion.
+^ Furthermore, because the error occurs at runtime, it's hard to just look at this code and know that it might be problematic. In testing, the image fetch may never fail, so the bug might ship to users, and then someone is bound to encounter it in the wild.
+
+^ You could argue that this is an issue with RAC, but the framework can't really know what the right answer is for your program here. Ignoring the error could be dangerous, but silently failing could be bad too. So it trips an assertion.
 
 ---
 
