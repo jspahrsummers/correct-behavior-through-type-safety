@@ -431,7 +431,7 @@ self.imageProperty <~ self.modelProperty.producer
 
 ^ For example, to go back to ReactiveCocoa for a second, many of the benefits of the `IO` type also apply to RAC's `Signal` type.
 
-^ Just like `IO` represents side effects, `Signal` (well, `SignalProducer`) represents _effects over time_.
+^ Just like `IO` represents side effects, `Signal`s (and `SignalProducer`s) represents _effects over time_. In both cases, types are successfully used to indicate effects.
 
 ---
 
