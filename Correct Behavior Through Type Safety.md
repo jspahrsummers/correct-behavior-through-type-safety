@@ -391,6 +391,18 @@ self.imageProperty <~ self.modelProperty.producer
 
 ---
 
+# [fit] _Typed errors_
+## vs.
+# [fit] _`throws`_
+
+^ If you’ve been following along with WWDC, you may know that Swift 2 introduces exceptions†. Although it’s great to finally have error handling as a first-class citizen of the language, it’s pretty limiting.
+
+^ The main problem for us here is that Swift doesn’t provide any type information about exceptions—everything is just `ErrorType`. Consequently, we have no way to prove or disprove what kind of errors some code might send (or that it sends none at all).
+
+^ With Swift’s built-in error handling, we’d be back at the same problem that the original property binding example had. That’s why RAC eschews it.
+
+---
+
 # _Types_
 # [fit] can also describe
 # _effects_
