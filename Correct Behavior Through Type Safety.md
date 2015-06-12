@@ -204,7 +204,7 @@ func identity(s: String) -> String {
 
 ^ Types, and Swift's type system in particular, also can't capture everything. Side effects are especially nefarious—for example, it's impossible to tell (from just the types) whether invoking the same function multiple times will yield the same result.
 
-^ Finally, tests might be good enough for your use case. For example, it's far easier to test that something can be loaded from your app bundle than it is to somehow encode that in the type system. (I don't even know what that would look like.)
+^ Finally, tests might be good enough for your use case. For example, it might easier to _test_ that network requests hit the cache than it is to _guarantee_ it in the type system.
 
 ---
 
@@ -306,7 +306,7 @@ could not be completed."
 
 ^ Furthermore, because the error occurs at runtime, it's hard to just look at this code and know that it might be problematic. In testing, the image fetch may never fail, so the bug might ship to users, and then someone is bound to encounter it in the wild.
 
-^ You could argue that this is an issue with RAC, but the framework can't really know what the right answer is for your program here. Ignoring the error could be dangerous, but silently failing could be bad too. So it trips an assertion.
+^ You might argue that this is an issue with RAC, but the framework can't really know what the right answer is for your program here. Ignoring the error could be dangerous, but silently failing could be bad too. So it trips an assertion.
 
 ---
 
@@ -447,7 +447,7 @@ self.imageProperty <~ self.modelProperty.producer
 
 ^ For example, to go back to ReactiveCocoa for a second, many of the benefits of the `IO` type also apply to RAC's `Signal` type.
 
-^ Just like `IO` represents side effects, `Signal`s (and `SignalProducer`s) represents _effects over time_. In both cases, types are successfully used to indicate effects.
+^ Just like `IO` represents side effects, `Signal`s (and `SignalProducer`s) represent _effects over time_. In both cases, types are successfully used to indicate effects.
 
 ---
 
